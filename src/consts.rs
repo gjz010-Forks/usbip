@@ -53,8 +53,14 @@ pub enum EndpointAttributes {
 }
 
 /// USB endpoint direction: IN or OUT
-/// Already exists in rusb crate
-pub use rusb::Direction;
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+pub enum Direction {
+    /// Direction for read (device to host) transfers.
+    In,
+    /// Direction for write (host to device) transfers.
+    Out,
+}
 
 /// Emulated max packet size of EP0
 pub const EP0_MAX_PACKET_SIZE: u16 = 64;

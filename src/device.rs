@@ -1,5 +1,4 @@
 use super::*;
-use rusb::Version as rusbVersion;
 
 #[derive(Clone, Default, Debug)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -7,22 +6,6 @@ pub struct Version {
     pub major: u8,
     pub minor: u8,
     pub patch: u8,
-}
-
-impl From<rusbVersion> for Version {
-    fn from(value: rusbVersion) -> Self {
-        Self {
-            major: value.major(),
-            minor: value.minor(),
-            patch: value.sub_minor(),
-        }
-    }
-}
-
-impl From<Version> for rusbVersion {
-    fn from(val: Version) -> Self {
-        rusbVersion(val.major, val.minor, val.patch)
-    }
 }
 
 /// bcdDevice
@@ -555,6 +538,26 @@ pub trait UsbDeviceHandler: std::fmt::Debug {
     /// }
     /// ```
     fn as_any(&mut self) -> &mut dyn Any;
+}
+
+#[cfg(feature = "rusb")]
+mod rusb_impl {
+    use super::Version;
+    use rusb::Version as rusbVersion;
+    impl From<rusbVersion> for Version {
+        fn from(value: rusbVersion) -> Self {
+            Self {
+                major: value.major(),
+                minor: value.minor(),
+                patch: value.sub_minor(),
+            }
+        }
+    }
+    impl From<Version> for rusbVersion {
+        fn from(val: Version) -> Self {
+            rusbVersion(val.major, val.minor, val.patch)
+        }
+    }
 }
 
 #[cfg(test)]

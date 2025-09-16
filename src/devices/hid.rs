@@ -1,5 +1,5 @@
 //! Implement HID device
-use super::*;
+use super::super::*;
 
 // reference:
 // HID 1.11: https://www.usb.org/sites/default/files/documents/hid1_11.pdf

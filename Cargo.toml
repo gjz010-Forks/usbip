@@ -14,9 +14,9 @@ tokio = { version = "1.22.0", features = ["rt", "net", "io-util", "sync"] }
 log = "0.4.17"
 num-traits = "0.2.15"
 num-derive = "0.4.2"
-rusb = "0.9.3"
+rusb = { version = "0.9.3", optional = true }
 serde = { version = "1.0", features = ["derive"], optional = true }
-nusb = "0.1.10"
+nusb = { version = "0.1.10", optional = true }
 
 [dev-dependencies]
 tokio = { version = "1.22.0", features = ["full"] }
@@ -25,3 +25,9 @@ env_logger = "0.11.7"
 [features]
 default = []
 serde = ["dep:serde", "rusb/serde"]
+rusb = ["dep:rusb", "nusb"]
+nusb = ["dep:nusb"]
+
+[[example]]
+name = "host"
+required-features = ["rusb"]

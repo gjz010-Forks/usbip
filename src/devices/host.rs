@@ -1,5 +1,7 @@
 //! Host USB
-use super::*;
+use rusb::{DeviceHandle, GlobalContext};
+
+use super::super::*;
 
 /// A handler to pass requests to interface of a rusb USB device of the host
 #[derive(Clone, Debug)]

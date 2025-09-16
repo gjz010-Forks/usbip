@@ -1,5 +1,5 @@
 //! Implement CDC(Communications) device
-use super::*;
+use super::super::*;
 
 /// A handler of a CDC ACM(Abstract Control Model)
 #[derive(Clone, Debug)]
